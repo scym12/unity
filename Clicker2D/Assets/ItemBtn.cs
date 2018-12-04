@@ -31,8 +31,9 @@ public class ItemBtn : MonoBehaviour {
 
     void Start()
     {
-        currentCost = startCurrentCost;
-        goldPerSec = startGoldPerSec;
+        //currentCost = startCurrentCost;
+        //goldPerSec = startGoldPerSec;
+        DataController.GetInstance().LoadItemButton(this);
 
         StartCoroutine("AddGoldLoop");
         UpdateUI();
@@ -48,10 +49,12 @@ public class ItemBtn : MonoBehaviour {
 
             UpdateItem();
             UpdateUI();
+
+            DataController.GetInstance().SaveItemButton(this);
         }
     }
 
-    IEnumerable AddGoldLoop()
+    IEnumerator AddGoldLoop()
     {
         while(true)
         {
@@ -67,7 +70,7 @@ public class ItemBtn : MonoBehaviour {
 
     public void UpdateItem()
     {
-        goldPerSec = startGoldPerSec * (int)Mathf.Pow(upgradePow, level);
+        goldPerSec = goldPerSec + startGoldPerSec * (int)Mathf.Pow(upgradePow, level);
         currentCost = startCurrentCost * (int)Mathf.Pow(costPow, level);
     }
 

@@ -7,7 +7,10 @@ public class UIManager : MonoBehaviour {
 
     public Text goldDisplayer;
     public Text goldPerClickDisplayer;
-    public DataController datacontroller;
+    // public DataController datacontroller;
+
+
+    public Text goldPerSecDisplayer;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +19,9 @@ public class UIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        goldDisplayer.text = "Gold:" + datacontroller.getGold();
-        goldPerClickDisplayer.text = "Gold Per Click:" + datacontroller.getGoldPerClick();
-	}
+        goldDisplayer.text = "Gold:" + DataController.GetInstance().getGold();
+        goldPerClickDisplayer.text = "Gold Per Click:" + DataController.GetInstance().getGoldPerClick();
+        goldPerSecDisplayer.text = "Gold Per Sec:" + DataController.GetInstance().GetGoldPerSec();
+
+    }
 }
