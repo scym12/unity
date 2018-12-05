@@ -4,10 +4,29 @@ using UnityEngine;
 
 public class DataController : MonoBehaviour {
 
-    private static DataController instance; 
+    private static DataController instance;
 
+    public static DataController Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<DataController>();
+                if (instance == null)
+                {
+                    GameObject container = new GameObject("DataController");
+                    instance = container.AddComponent<DataController>();
+                }
+            }
+            return instance;
+        }
+    }
+
+    /*
     public static DataController GetInstance()
     {
+        
         if(instance == null)
         {
             instance = FindObjectOfType<DataController>();
@@ -19,20 +38,57 @@ public class DataController : MonoBehaviour {
         }
         return instance;
     }
+    */
+
 
     private ItemBtn[] itemButtons; 
 
-    private int m_gold = 0;
-    private int m_goldPerClick = 0;
+    // private int m_gold = 0;
+
+    public long gold
+    {
+        get
+        {
+            if(!PlayerPrefs.HasKey("Gold"))
+            {
+                return 0;
+            }
+
+            string tmpGold = PlayerPrefs.GetString("Gold","0");
+            return long.Parse(tmpGold);
+        }
+        set
+        {
+            PlayerPrefs.SetString("Gold", value.ToString()); 
+        }
+    }
+
+
+    // private int m_goldPerClick = 0;
+
+    public int goldPerClick
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("GoldPerClick",1);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("GoldPerClick", value);
+        }
+    }
 
     private void Awake()
     {
-        m_gold = PlayerPrefs.GetInt("Gold");
-        m_goldPerClick = PlayerPrefs.GetInt("GoldPerClick",1);
+        // m_gold = PlayerPrefs.GetInt("Gold");
+        // m_goldPerClick = PlayerPrefs.GetInt("GoldPerClick",1);
+
+        // PlayerPrefs.DeleteAll();
 
         itemButtons = FindObjectsOfType<ItemBtn>();
     }
 
+    /*
     private void setGold(int newGold)
     {
         m_gold = newGold;
@@ -55,7 +111,9 @@ public class DataController : MonoBehaviour {
     {
         return m_gold;
     }
+    */
 
+/*
     public int getGoldPerClick()
     {
         return m_goldPerClick;
@@ -72,7 +130,7 @@ public class DataController : MonoBehaviour {
         m_goldPerClick += newGoldPerClick;
         setGoldPerClick(m_goldPerClick);
     }
-
+*/
 
     public void LoadUpgradeButton(UpgradeButton upgradebutton)
     {

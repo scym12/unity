@@ -33,7 +33,7 @@ public class ItemBtn : MonoBehaviour {
     {
         //currentCost = startCurrentCost;
         //goldPerSec = startGoldPerSec;
-        DataController.GetInstance().LoadItemButton(this);
+        DataController.Instance.LoadItemButton(this);
 
         StartCoroutine("AddGoldLoop");
         UpdateUI();
@@ -41,16 +41,16 @@ public class ItemBtn : MonoBehaviour {
 
     public void PurchaseItem()
     {
-        if (DataController.GetInstance().getGold() >= currentCost)
+        if (DataController.Instance.gold >= currentCost)
         {
             isPurchased = true;
-            DataController.GetInstance().subGold(currentCost);
+            DataController.Instance.gold -= currentCost; 
             level++;
 
             UpdateItem();
             UpdateUI();
 
-            DataController.GetInstance().SaveItemButton(this);
+            DataController.Instance.SaveItemButton(this);
         }
     }
 
@@ -60,7 +60,7 @@ public class ItemBtn : MonoBehaviour {
         {
             if(isPurchased)
             {
-                DataController.GetInstance().addGold(goldPerSec);
+                DataController.Instance.gold += goldPerSec;
 
             }
 

@@ -10,8 +10,6 @@ public class ClickBtn : MonoBehaviour {
 
     public void OnClick()
     {
-        // gold += goldPerClick;
-        int goldPerClick = DataController.GetInstance().getGoldPerClick();
-        DataController.GetInstance().addGold(goldPerClick);
+        DataController.Instance.gold += DataController.Instance.goldPerClick; 
     }
 }
